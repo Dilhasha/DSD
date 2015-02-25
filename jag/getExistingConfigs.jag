@@ -1,0 +1,194 @@
+<!--
+ * Copyright (c) 2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *   WSO2 Inc. licenses this file to you under the Apache License,
+ *   Version 2.0 (the "License"); you may not use this file except
+ *   in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Domain Specific Dashboard for CEP</title>
+
+    <!-- Bootstrap -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../css/default.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+         <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
+         <%
+
+            /*
+             * Get the available configurations list
+             */
+
+            include("invokeWebService.jag");
+
+            var domainName = request.getParameter("domain");
+            var action = request.getParameter("action");
+
+            var xmlResponse = invokeWebService("getAllDomainConfigInfoDTO",null);
+
+            log.info(xmlResponse);
+
+            var configCount = xmlResponse..*::['return'].length();
+            log.info("configCount " + configCount);
+
+            var configDetails = [], configuration;
+            var name,description,type;
+
+            var registryNotConfigured = true;
+
+            for(var i=0; i< configCount ; i++){
+
+                name = xmlResponse..*::['name'][i];
+                description = xmlResponse..*::['description'][i];
+                type = xmlResponse..*::['type'][i];
+
+                var domainSpecificConfig = [];
+
+                if(name!=undefined && description!=undefined && type!=undefined){
+                    registryNotConfigured = false;
+
+                    configuration = {
+                        "name" : name.text(),
+                        "description" : description.text(),
+                        "type" : type.text()
+                    }
+
+                    configDetails.push(configuration);
+
+                    for(var i in configDetails){
+                        if(configDetails[i].type == domainName) domainSpecificConfig.push(configDetails[i]);
+                    }
+                }
+                else{
+                   print('<script>alert("Please create a new configuration to proceed"); window.location= "../index.jag";</script>');
+                }
+
+            }
+
+         %>
+
+
+         <script type="text/javascript">
+            $(document).ready(function() {
+                var domain = '<%=domainName%>';
+                var action = '<%=action%>';
+                var registryNotConfigured = '<%=registryNotConfigured%>';
+
+                window.onload = function() {
+
+                    var configNamesString = '<%=domainSpecificConfig%>';
+                    var configNames = JSON.parse(configNamesString);
+
+                    if(configNames.length!=0){
+                        var configData= '<label for="exampleInputEmail1">'+'Please select a Configuration'+'</label>';
+                        configData+='<select class="form-control" id="selectConfig" name="selectConfig">';
+
+                        for(var i in configNames){
+                            configData+='<option value='+configNames[i].name+'>'+configNames[i].name+'</option>';
+                        }
+
+                        configData+='</select>';
+
+                        $('#showConfigurations').html(configData);
+                        $('#selectConfiguration').click(function(){
+
+                            var configName = $('#selectConfig').val();
+
+                            if(action=="edit")
+                                window.location = "configuration.jag?action=edit&configName=" + configName + "&domain=" + domain;
+                            else if(action=="delete")
+                                window.location = "deleteExistingConfig.jag?configName=" + configName;
+
+                        });
+                    }
+                    else{
+                        if(registryNotConfigured=="false"){
+                            alert("There are no saved configurations for the selected domain");
+                            window.location = "../index.jag";
+                        }
+                    }
+                };
+            });
+         </script>
+
+    </head>
+
+    <body>
+
+            <nav id="dom-spec-navbar" class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="../index.jag">
+                            Domain Specific Dashboard for CEP
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+            <div class="row padtop100">
+                <div class="col-sm-offset-2 col-md-offset-2 col-sm-8 col-md-8">
+                    <div id="" class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Configure Queries for a Selected Domain</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form>
+                              <div class="form-group" id="showConfigurations">
+                                </div>
+
+
+                            <div class="form-group" id="buttonsSelection">
+                              <button id="selectConfiguration" type="button" class="btn btn-success">Select</button>
+                          </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-4 col-md-4">
+
+              </div>
+          </div>
+      </div>
+
+  <footer class="footer container-fluid">
+    <p class="copyrights t-center">&copy; 2015 WSO2 Inc. All Rights Reserved</p>
+</footer>
+
+
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.js"></script>
+
+
+    </body>
+
+</html>
