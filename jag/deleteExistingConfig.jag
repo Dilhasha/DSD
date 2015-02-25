@@ -1,0 +1,13 @@
+<%
+
+    include("invokeWebService.jag");
+
+    var configName = request.getParameter("configName");
+
+    var deleteConfigInfoPayload = '<exec:deleteConfigInfo xmlns:exec="http://executiongenerator.eventprocessing.carbon.wso2.org"><exec:configName>' + configName + '</exec:configName></exec:deleteConfigInfo>';
+
+    invokeWebService("deleteConfigInfo", deleteConfigInfoPayload);
+
+    print('<script>alert("Sucessfully Deleted"); window.location = "../index.jag";</script>');
+
+%>

@@ -1,0 +1,221 @@
+* {
+    border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+}
+a {
+    color: #2c3e50;
+}
+/*.fixed-table-loading{
+    background: url('../images/preloader.gif') no-repeat center center;
+}*/
+.daterangepicker .ranges li{
+    color: #2c3e50;
+}
+.daterangepicker .ranges li.active, .daterangepicker .ranges li:hover,
+.daterangepicker td.active, .daterangepicker td.active:hover{
+    background-color: #2c3e50;
+    border-color: #2c3e50;
+}
+.daterangepicker td.in-range{
+    background-color: #c0dcee;
+}
+.fixed-table-header thead th .th-inner{
+    background: #2c3e50;
+    color: #fff;
+}
+.fixed-table-container{
+    border-color: #2c3e50;
+}
+.fixed-table-toolbar .dropdown-menu{
+    min-width: 170px;
+    font-size: 12px;
+}
+.fixed-table-toolbar .columns label{
+    line-height: 1;
+    padding: 0 10px;
+}
+#map-container .tab-pane{
+    border: 1px solid #2c3e50;
+    //border-top: none;
+}
+.light-danger{
+    background: #fbebeb;
+}
+.hight34{
+    height: 34px;
+}
+#fraudulent-data-panel .form-group,
+#initial-data-panel .form-group{
+    margin-bottom: 0px;
+}
+.font12 td{
+    font-size: 12px;
+}
+.t-center{
+    text-align: center;
+}
+.t-right{
+    text-align: right;
+}
+.padtop50{
+    padding-top: 50px;
+}
+.padtop70{
+    padding-top: 70px;
+}
+.padtop100{
+    padding-top: 100px;
+}
+.padleft20{
+    padding-left: 20px;
+}
+.navbar-inverse{
+    background: #2C3E50;
+}
+.navbar-inverse .navbar-brand{
+    color: #e2e2e2;
+}
+#dom-spec-navbar{
+    -webkit-box-shadow: 0 4px 4px 0 #9E9E9E;
+    box-shadow: 0 4px 4px 0 #9E9E9E;
+}
+.copyrights{
+    font-size: 12px;
+    color: #999;
+    padding-top: 50px;
+}
+.highlight-row{
+    background: #f2dede;
+    -webkit-box-shadow: 0 0 3px 0 #F36868;
+    box-shadow: 0 0 3px 0 #F36868;
+}
+.small-padding{
+    padding: 8px;
+}
+.small-padding .close{
+    right: 6px;
+}
+.btn-primary{
+    background-color: #2c3e50;
+    border-color: #000033;
+    color: #fff;
+}
+.btn-primary.active, .btn-primary.focus, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open > .dropdown-toggle.btn-primary{
+    background-color: #465666;
+}
+#fdt-logo.navbar-brand {
+    float: left;
+    font-size: 18px;
+    height: 50px;
+    line-height: 20px;
+    padding: 0px;
+    padding-left: 15px;
+}
+.active{
+    color: #fff!important;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
+    background: #2c3e50;
+    color: #fff;
+    border-color: #2c3e50;
+}
+#initial-data-panel, #fraudulent-data-panel{
+    border-color: #2c3e50;
+}
+#initial-data-panel .panel-heading,
+#fraudulent-data-panel .panel-heading{
+    background: #2c3e50;
+    border-color: #2c3e50;
+    color: #fff;
+}
+/* Maps CSS */
+#shipping-ip-map,
+#intensity-map {
+    height: 500px;
+}
+.leaflet-popup-content{
+    color: #333;
+}
+.wip{
+    text-align: center;
+    padding: 50px 0px;
+    color: #333;
+}
+#templateChoicesDiv {
+    display: none;
+}
+#templateCanvasDiv {
+    width: 910px;
+    height: 300px;
+    border: 1px dashed #ccc;
+
+}
+#templateCanvas{
+    width: 910px;
+    height: 300px;
+}
+#templateDetailsDiv{
+    display: none;
+}
+#templateDetailsHeading{
+    display: none;
+}
+#templateDetails{
+    display: none;
+}
+#conditionCanvasDiv {
+    width: 910px;
+    height: 300px;
+    border: 1px dashed #ccc;
+
+}
+#conditionCanvas{
+    width: 910px;
+    height: 300px;
+}
+#conditionDetailsDiv{
+    display:none;
+}
+#conditionChoicesDiv{
+    display:none;
+}
+#conditionDetails{
+    display:none;
+}
+#setCondition{
+    display:none;
+}
+.node rect {
+    stroke: #707070;
+    fill: #FFCC99;
+    stroke-width: 1px;
+}
+
+.edgePath path {
+    stroke: #333;
+    stroke-width: 1.5px;
+    fill:none;
+}
+
+#clickedNodeId {
+    display: none;
+}
+#clickedTemplateNodeId {
+    display: none;
+}
+
+/* This styles the title of the tooltip */
+.tipsy .name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #60b1fc;
+    margin: 0;
+}
+/* This styles the body of the tooltip */
+.tipsy .description {
+    font-size: 1.2em;
+}
+
+.nobold{
+    font-weight: normal;
+}
